@@ -6,14 +6,18 @@
  * */
 class VK {
 
-  static ACCESS_TOKEN = '958eb5d439726565e9333aa30e50e0f937ee432e927f0dbd541c541887d919a7c56f95c04217915c32008';
+  static ACCESS_TOKEN = 'vk1.a.Rv-b7-aDsChOSwziDjJFfDNDoWvzKXis65iVQE8J9WHAe1sZFGBb7njtMwaNB1Sh34uRz-7wHHebWh_dZuEfzaSSu75kY20pUBdjc-jZdJOEO9EdMzt1IsdZei3aUbnzg0Dt6kLcX7GtSEcgZaSQ2Vf2yMNV2HPUBkyPM58XBnTqQO2VWJuLA9jsJA9LC1p-';
   static lastCallback;
 
   /**
    * Получает изображения
    * */
   static get(id = '', callback){
-
+    this.lastCallback = callback;
+    let script = document.createElement('script');
+    script.id = 'delete'
+    script.src = `https://api.vk.com/method/photos.get?owner_id=${id}&album_id=profile&extended=1&photo_sizes=1&count=5&callback=VK.processData&access_token=${this.ACCESS_TOKEN}&v=5.154`;
+    document.body.append(script);
   }
 
   /**
@@ -21,6 +25,21 @@ class VK {
    * Является обработчиком ответа от сервера.
    */
   static processData(result){
+    document.getElementById('delete').remove();
 
+    if (result.response) {
+      const resultList = [];
+      const photos = result.response.items;
+
+      photos.forEach(photo => {
+        resultList.push(photo.sizes.at(-1).url)
+      });
+
+      this.lastCallback(resultList);
+      this.lastCallback = () => {};
+
+    } else if (result.error) {
+      alert(result.error.error_msg);
+    }
   }
 }
