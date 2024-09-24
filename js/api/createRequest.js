@@ -11,7 +11,14 @@ const createRequest = (options = {}) => {
         headers: options.headers,
     })
         .then((responce) => {
-            console.log(responce);
+            if (responce.status < 204) {
+                return responce.json()
+            } else if (responce.status === 204) {
+                return null;
+            }
+        })
+        .then (data => {
+            return options.callback(data);
         })
         .catch((error) => {
             console.log(error);

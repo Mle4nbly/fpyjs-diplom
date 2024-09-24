@@ -6,7 +6,7 @@
  * */
 class VK {
 
-  static ACCESS_TOKEN = 'vk1.a.s11RrLa5zINiqWSJyH1qg3pDJBrdPhH8JAYI4PPC7R6zT_GVTVVZ7piTjX7yrLCO5f-y6FEh6L1Fk0aV6u06a_hvor4ybSY6SwB4SfoFqkz3Dczdp-oZMYIbZKnlxlGL_N2MQztFrzV_EY8R9YoEW8JG6MPANHzDG1w5nE7NfIAn9x5gQulcQUn1STx6D8uB';
+  static ACCESS_TOKEN = 'vk1.a.Rv-b7-aDsChOSwziDjJFfDNDoWvzKXis65iVQE8J9WHAe1sZFGBb7njtMwaNB1Sh34uRz-7wHHebWh_dZuEfzaSSu75kY20pUBdjc-jZdJOEO9EdMzt1IsdZei3aUbnzg0Dt6kLcX7GtSEcgZaSQ2Vf2yMNV2HPUBkyPM58XBnTqQO2VWJuLA9jsJA9LC1p-';
   static lastCallback;
 
   /**
@@ -26,14 +26,12 @@ class VK {
    */
   static processData(result){
     document.getElementById('delete').remove();
-    console.log(result);
 
     if (result.response) {
       const resultList = [];
       const photos = result.response.items;
 
       photos.forEach(photo => {
-        console.log(photo);
         resultList.push(photo.sizes.at(-1).url)
       });
 

@@ -22,16 +22,15 @@ class ImageViewer {
     this.imagesBlock.addEventListener(('dblclick'), (event) => {
       if (event.target.tagName === 'IMG') {
         this.element.querySelector('.image').setAttribute('src', event.target.src);
-      };
-    });
+      }
+    })
 
     this.imagesBlock.addEventListener(('click'), (event) => {
       if (event.target.tagName === 'IMG') {
         event.target.classList.toggle('selected');
-        console.log(event.target)
         this.checkButtonText();
       }
-    });
+    })
 
     this.imagesBlock.querySelector('.select-all').addEventListener(('click'), () => {
       const imagesList = Array.from(this.imagesBlock.querySelectorAll('.four img'));
@@ -44,20 +43,36 @@ class ImageViewer {
       }
     })
 
-    this.imagesBlock.querySelector('.send').addEventListener(('click'), () => {
-      const imagesList = Array.from(this.imagesBlock.querySelectorAll('.four img'));
-      let counter = 0;
-      imagesList.forEach((image) => {
-        if (image.classList.contains('selected')) {
-          Yandex.uploadFile(counter.toString() + '.png', image.src, () => {console.log('Успех!')})
-          counter += 1;
-        }
+    this.imagesBlock.querySelector('.show-uploaded-files').addEventListener(('click'), () => {
+      const previewModal = App.getModal('filePreviewer');
+      previewModal.innerHTML = '<i class="asterisk loading icon massive"></i>';
+      previewModal.open();
+      
+      Yandex.getUploadedFiles((data) => {
+        previewModal.showImages(data);
       })
     })
 
+    this.imagesBlock.querySelector('.send').addEventListener(('click'), () => {
+      const uploadModal = App.getModal('fileUploader');
+      uploadModal.open();
 
+      uploadModal.showImages(Array.from(this.imagesBlock.querySelectorAll('.four .selected')));
+    });
+
+    // this.imagesBlock.querySelector('.send').addEventListener(('click'), () => {
+    //   const imagesList = Array.from(this.imagesBlock.querySelectorAll('.four img'));
+    //   let counter = 0;
+    //   imagesList.forEach((image) => {
+    //     if (image.classList.contains('selected')) {
+    //       Yandex.uploadFile(counter.toString() + '.png', image.src, () => {console.log('Успех!')})
+    //       counter += 1;
+    //     }
+    //   })
+    // })
+    
   }
-
+  
   /**
    * Очищает отрисованные изображения
    */

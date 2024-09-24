@@ -33,12 +33,12 @@ class Yandex {
     createRequest({
       url: 'https://cloud-api.yandex.net/v1/disk/resources/upload',
       method: 'POST',
+      callback: callback,
       data: {
-        path: 'photos/' + path,
+        path: path,
         url: url,
       },
       headers: this.headers,
-      callback: callback,
     })
   }
 
@@ -49,11 +49,11 @@ class Yandex {
     createRequest({
       url: 'https://cloud-api.yandex.net/v1/disk/resources',
       method: 'DELETE',
+      callback: callback,
       data: {
         path: path,
       },
       headers: this.headers,
-      callback: callback,
     })
   }
 
@@ -66,6 +66,9 @@ class Yandex {
       method: 'GET',
       headers: this.headers,
       callback: callback,
+      data: {
+        media_type: 'image',
+      }
     })
   }
 
