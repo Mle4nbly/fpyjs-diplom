@@ -5,14 +5,11 @@
  * */
 class Yandex {
   static HOST = 'https://cloud-api.yandex.net/v1/disk';
-  // static headers = {
-  //   'Authorization': `${this.getToken()}`,
-  //   'Content-Type': 'application/json',
-  // }
   static headers = {
-    'Authorization': `y0_AgAAAABjpqAQAADLWwAAAAERm9p2AABoKdmJY3VJZafjqClba3RltpMxoA`,
+    'Authorization': `${this.getToken()}`,
     'Content-Type': 'application/json',
   }
+  
   /**
    * Метод формирования и сохранения токена для Yandex API
    */
